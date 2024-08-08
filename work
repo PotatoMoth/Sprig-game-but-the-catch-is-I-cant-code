@@ -1,0 +1,138 @@
+
+/*
+First time? Check out the tutorial game:
+https://sprig.hackclub.com/gallery/getting_started
+
+@title: HELP ME I CANT CODE
+@author: 
+@tags: []
+@addedOn: 2024-00-00
+*/
+
+const player = "p"
+const codingSkills = "c"
+const problem = "r"
+
+setLegend(
+  [ player, bitmap`
+................
+.....00.........
+.00000.000......
+00........00....
+0...0....0..00..
+0............00.
+0...000000....0.
+00..0....0....0.
+.00...........0.
+..00..........0.
+....000.....00..
+.......00000....
+.......0........
+......000.......
+.......0........
+......0.0.......` ],
+  [ codingSkills, bitmap`
+00D000D00DD00DDD
+0DD0D0D0D0D0DDDD
+0DD0D0D0D0D00DDD
+0DD0D0D0D0D0DDDD
+00D000D00DD00DDD
+DDDDDDDDDDDDDDDD
+000D0D0DDD0D0DDD
+0DDD0D0D0D0D0DDD
+0DDD0D0DDD0D0DDD
+000D00DD0D0D0DDD
+DD0D0D0D0D0D0DDD
+DD0D0D0D0D0D0DDD
+000D0D0D0D0D0DDD
+DDDDDDDDDDDDDDDD
+DDDDDDDDDDDDDDDD
+DDDDDDDDDDDDDDDD`],
+  [ problem, bitmap`
+LLLLLLLLLLLLLLLL
+LLLLLLLLLLLLLLLL
+LLLLLLLLLLLLLLLL
+L000LLLLLLLL0LLL
+L0L0L00L000L000L
+L000L0LL0L0L0L0L
+L0LLL0LL000L000L
+LLLLLLLLLLLLLLLL
+L0LL00LLLLLLLLLL
+L0L0LL0L00L00LLL
+L0L000LL0L0L0LLL
+L0L0LLLL0L0L0LLL
+L0LL00LL0L0L0LLL
+LLLLLLLLLLLLLLLL
+LLLLLLLLLLLLLLLL
+LLLLLLLLLLLLLLLL`]
+);
+
+const level = map`
+......
+......
+.p..c.
+......
+......
+......`
+const level2 = map`
+p.....
+......
+......
+......
+......
+.....c`
+const level3 = map`
+p.r...
+..r.r.
+.r....
+....rc
+..r.r.
+..r...`
+
+setMap(level)
+
+setPushables({
+  [ player ]: []
+})
+
+onInput("s", () => {
+  getFirst(player).y += 1
+})
+
+onInput("w", () => {
+  getFirst(player).y -= 1
+})
+
+onInput("d", () => {
+  getFirst(player).x += 1
+})
+
+onInput("a", () => {
+  getFirst(player).x -= 1
+})
+
+ const switchLevel2 = (
+afterInput(() => {
+  const playerSprite = getFirst(player);
+  const codingSkillsSprites = getAll(codingSkills);
+
+  // Check if the player touches the coding skills object
+  const touchingCodingSkills = codingSkillsSprites.some(codingSkillsSprite => {
+    return playerSprite.x === codingSkillsSprite.x && playerSprite.y === codingSkillsSprite.y;
+  });
+  
+  if (touchingCodingSkills) {
+    
+    setMap(level2);
+  }
+})
+)
+ switchLevel2
+
+afterInput("setMap(level2)"); { const touchingCodingSkills = codingSkillsSprites.some(codingSkillsSprite => {
+    return playerSprite.x === codingSkillsSprite.x && playerSprite.y === codingSkillsSprite.y;
+  });
+  if (touchingCodingSkills) {
+  setMap(level3)}
+
+}
