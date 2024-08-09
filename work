@@ -12,14 +12,16 @@ const player = "p"
 const codingSkills = "c"
 const problem = "r"
 const distraction = "d"
-const game = "g"
+const experience = "e"
 const smiley = "s"
+const failure = "f"
+const motivation = "m"
 
 setLegend(
   [ player, bitmap`
 ................
-.....00.........
-.00000.000......
+................
+.000000000......
 00........00....
 0...0....0..00..
 0............00.
@@ -84,21 +86,21 @@ LLLLLLLLLLLLLLLL`],
 3000300033333333
 3030303033333333
 3000303033333333`],
-  [ game, bitmap`
+  [ experience, bitmap`
+00DDDDDDDDDDDDDD
+0DDDDDDDDDDDDDDD
+00DDDDDDDDDD0DDD
+0DD0D0D000D0D0DD
+0DDD0DD0D0D000DD
+00D0D0D000D0DDDD
+DDDDDDD0DDDD00DD
+DDDDDDD0DDDDDDDD
+DDDD0DDDDDDDDD0D
+D00DDD00DD00D0D0
+D0DD0D0D0D0DD000
+D0DD0D0D0D00D0DD
+DDDDDDDDDDDDDD00
 DDDDDDDDDDDDDDDD
-D0000DD0000DDDDD
-D0DDDDD0DD0DDDDD
-D0000DD0000DDDDD
-D0DD0DD0DD0DDDDD
-D0000DD0DD0DDDDD
-DDDDDDDDDDDDDDDD
-DDDDDDDDD00DDDDD
-D00000DDD0DDDDDD
-D0D0D0DDD0DDDDDD
-D0D0D0DDD00DDDDD
-D0D0D0DDD0DDDDDD
-D0DDD0DDD0DDDDDD
-DDDDDDDDD00DDDDD
 DDDDDDDDDDDDDDDD
 DDDDDDDDDDDDDDDD`],
   [ smiley, bitmap`
@@ -117,7 +119,41 @@ DDDDDDDDDDDDDDDD`],
 .00...........0.
 ...0..........0.
 ...0........00..
-....00000000....`]
+....00000000....`],
+  [ failure, bitmap `
+................
+................
+....00000.......
+..00.....0000...
+.00..........0..
+0.............00
+0...0..........0
+0..............0
+0............0.0
+0....000000....0
+0....0....0....0
+0....0....0....0
+0..............0
+.00...........00
+..000........00.
+....0000000000..`],
+  [ motivation, bitmap`
+DDDDDDDDDDDD0DDD
+D00000D000D000DD
+D0D0D0D0D0DD0DDD
+D0D0D0D000DD0DDD
+DDDDDDDDDDDDDDDD
+D0DDDDDD0DDD0DDD
+DDD0D0D0D0D000DD
+D0D0D0D000DD0DDD
+D0DD0DD0D0DD0DDD
+DDDDDDDDDDDDDDDD
+DDDDDDDDDDDDDDDD
+D0DDDDDDDDDDDDDD
+DDD000DD0DDDDDDD
+D0D0D0D0D0DDDDDD
+D0D000D0D0DDDDDD
+DDDDDDDDDDDDDDDD`]
 );
 
 setPushables({
@@ -128,18 +164,22 @@ setSolids([ player, problem])
 
 onInput("s", () => {
   getFirst(player).y += 1
+  checkCollisions()
 })
 
 onInput("w", () => {
   getFirst(player).y -= 1
+  checkCollisions()
 })
 
 onInput("d", () => {
   getFirst(player).x += 1
+    checkCollisions()
 })
 
 onInput("a", () => {
   getFirst(player).x -= 1
+  checkCollisions()
 })
 
 setMap(map`
@@ -160,33 +200,44 @@ rrrrrrrrrrrrrrr.
 ......rr....rr..
 .c.......rr....r`)
 
-setInterval(() => {
+const checkCollisions = () => {
   const playerSprite = getFirst(player)
   const codingSkillsSprites = getAll(codingSkills)
+  const experienceSprites = getAll(experience)
+  const distractionSprites = getAll(distraction)
+  const motivationSprites = getAll(motivation)
 
-  codingSkillsSprites.forEach(codingSkillsSprite => {
+    experienceSprites.forEach(experienceSprite => {
+    if (playerSprite.x === experienceSprite.x && playerSprite.y === experienceSprite.y) {
+      //sound effect here
+      setMap(map`
+..d.d.d..
+p.......m`)
+    }
+  })
+
+    codingSkillsSprites.forEach(codingSkillsSprite => {
     if (playerSprite.x === codingSkillsSprite.x && playerSprite.y === codingSkillsSprite.y) {
     //sound effect here
     setMap(map`
 .r.......
 .........
-pr.d.d..g
+pr.d.d..e
 .r.......
 .r.......`)
     }
-  })
-}, 1000)
+    })
 
-
-setInterval(() => {
-  const playerSprite = getFirst(player)
-  const gameSprites = getAll(game)
-
-  gameSprites.forEach(gameSprite => {
-    if (playerSprite.x === gameSprite.x && playerSprite.y === gameSprite.y) {
-      //sound effect here
-      setMap(map`
-s`)
+    distractionSprites.forEach(distractionSprite => {
+    if (playerSprite.x === distractionSprite.x && playerSprite.y === distractionSprite.y) {
+    //sound effect here
+    setMap(map`
+f`)
     }
   })
-}, 1000)
+    motivationSprites.forEach(motivationSprite => {
+    if (playerSprite.x === motivationSprite.x && playerSprite.y === motivationSprite.y) {
+    setMap(map`.`)
+    }
+    })
+}
