@@ -1,4 +1,3 @@
-
 /*
 First time? Check out the tutorial game:
 https://sprig.hackclub.com/gallery/getting_started
@@ -12,6 +11,9 @@ https://sprig.hackclub.com/gallery/getting_started
 const player = "p"
 const codingSkills = "c"
 const problem = "r"
+const distraction = "d"
+const game = "g"
+const smiley = "s"
 
 setLegend(
   [ player, bitmap`
@@ -64,36 +66,65 @@ L0L0LLLL0L0L0LLL
 L0LL00LL0L0L0LLL
 LLLLLLLLLLLLLLLL
 LLLLLLLLLLLLLLLL
-LLLLLLLLLLLLLLLL`]
+LLLLLLLLLLLLLLLL`],
+  [ distraction, bitmap`
+0033030003303333
+0303330333303333
+0303030003000300
+0303033303303303
+0033030003303303
+3333333333333333
+3333333333333333
+0000300030330333
+0330303330333333
+0000303300030333
+0330303330330333
+0330300030330333
+3333333333333333
+3000300033333333
+3030303033333333
+3000303033333333`],
+  [ game, bitmap`
+DDDDDDDDDDDDDDDD
+D0000DD0000DDDDD
+D0DDDDD0DD0DDDDD
+D0000DD0000DDDDD
+D0DD0DD0DD0DDDDD
+D0000DD0DD0DDDDD
+DDDDDDDDDDDDDDDD
+DDDDDDDDD00DDDDD
+D00000DDD0DDDDDD
+D0D0D0DDD0DDDDDD
+D0D0D0DDD00DDDDD
+D0D0D0DDD0DDDDDD
+D0DDD0DDD0DDDDDD
+DDDDDDDDD00DDDDD
+DDDDDDDDDDDDDDDD
+DDDDDDDDDDDDDDDD`],
+  [ smiley, bitmap`
+................
+...000000.......
+...0.....000....
+..0.........00..
+.0............00
+.0...0.........0
+.0.............0
+00...........0.0
+0....0.........0
+0....00....0...0
+.0....000000...0
+.0.............0
+.00...........0.
+...0..........0.
+...0........00..
+....00000000....`]
 );
 
-const level = map`
-......
-......
-.p..c.
-......
-......
-......`
-const level2 = map`
-p.....
-......
-......
-......
-......
-.....c`
-const level3 = map`
-p.r...
-..r.r.
-.r....
-....rc
-..r.r.
-..r...`
-
-setMap(level)
-
 setPushables({
-  [ player ]: []
+  [ problem ]: [player]
 })
+
+setSolids([ player, problem])
 
 onInput("s", () => {
   getFirst(player).y += 1
@@ -111,28 +142,51 @@ onInput("a", () => {
   getFirst(player).x -= 1
 })
 
- const switchLevel2 = (
-afterInput(() => {
-  const playerSprite = getFirst(player);
-  const codingSkillsSprites = getAll(codingSkills);
+setMap(map`
+....r.r.r.......
+rrrrr.r.r.rr....
+......r.r.r.r.r.
+p.rrr.r.r.r...r.
+....r.r...r...r.
+rrr.r.r..r......
+....r.r..r......
+.rrrr.r.r.......
+.r....r.rrrrr...
+...rrr......r.rr
+..r.......r.r...
+.rrrrrrrrrr.rrr.
+..............r.
+rrrrrrrrrrrrrrr.
+......rr....rr..
+.c.......rr....r`)
 
-  // Check if the player touches the coding skills object
-  const touchingCodingSkills = codingSkillsSprites.some(codingSkillsSprite => {
-    return playerSprite.x === codingSkillsSprite.x && playerSprite.y === codingSkillsSprite.y;
-  });
-  
-  if (touchingCodingSkills) {
-    
-    setMap(level2);
-  }
-})
-)
- switchLevel2
+setInterval(() => {
+  const playerSprite = getFirst(player)
+  const codingSkillsSprites = getAll(codingSkills)
 
-afterInput("setMap(level2)"); { const touchingCodingSkills = codingSkillsSprites.some(codingSkillsSprite => {
-    return playerSprite.x === codingSkillsSprite.x && playerSprite.y === codingSkillsSprite.y;
-  });
-  if (touchingCodingSkills) {
-  setMap(level3)}
+  codingSkillsSprites.forEach(codingSkillsSprite => {
+    if (playerSprite.x === codingSkillsSprite.x && playerSprite.y === codingSkillsSprite.y) {
+    //sound effect here
+    setMap(map`
+.r.......
+.........
+pr.d.d..g
+.r.......
+.r.......`)
+    }
+  })
+}, 1000)
 
-}
+
+setInterval(() => {
+  const playerSprite = getFirst(player)
+  const gameSprites = getAll(game)
+
+  gameSprites.forEach(gameSprite => {
+    if (playerSprite.x === gameSprite.x && playerSprite.y === gameSprite.y) {
+      //sound effect here
+      setMap(map`
+s`)
+    }
+  })
+}, 1000)
