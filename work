@@ -16,6 +16,8 @@ const experience = "e"
 const smiley = "s"
 const failure = "f"
 const motivation = "m"
+const help = "h"
+const game = "g"
 
 setLegend(
   [ player, bitmap`
@@ -153,7 +155,41 @@ D0DDDDDDDDDDDDDD
 DDD000DD0DDDDDDD
 D0D0D0D0D0DDDDDD
 D0D000D0D0DDDDDD
-DDDDDDDDDDDDDDDD`]
+DDDDDDDDDDDDDDDD`],
+  [ help, bitmap`
+DDDDDDDDDDDDDDDD
+D0DD0DDDD00DDDDD
+D0DD0DDDD0DDDDDD
+D0000DDDD00DDDDD
+D0DD0DDDD0DDDDDD
+D0DD0DDDD00DDDDD
+DDDDDDDDDDDDDDDD
+DDDDDDDDDDDDDDDD
+DD0DDDDDD000DDDD
+DD0DDDDDD0D0DDDD
+DD0DDDDDD000DDDD
+DD0DDDDDD0DDDDDD
+DD000DDDD0DDDDDD
+DDDDDDDDDDDDDDDD
+DDDDDDDDDDDDDDDD
+DDDDDDDDDDDDDDDD`],
+  [ game, bitmap`
+HHHHHHHHHHHHHHHH
+HH000HHHH00HHHHH
+H0HHHHHH0HH0HHHH
+H0000HHH0000HHHH
+H0HH0HHH0HH0HHHH
+H0000HHH0HH0HHHH
+HHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHH
+H00000HHH00HHHHH
+H0H0H0HHH0HHHHHH
+H0H0H0HHH00HHHHH
+H0H0H0HHH0HHHHHH
+H0H0H0HHH00HHHHH
+HHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHH
+HHHHHHHHHHHHHHHH`]
 );
 
 setPushables({
@@ -206,28 +242,57 @@ const checkCollisions = () => {
   const experienceSprites = getAll(experience)
   const distractionSprites = getAll(distraction)
   const motivationSprites = getAll(motivation)
+  const helpSprites = getAll(help)
+  const gameSprites = getAll(game)
 
     experienceSprites.forEach(experienceSprite => {
     if (playerSprite.x === experienceSprite.x && playerSprite.y === experienceSprite.y) {
       //sound effect here
       setMap(map`
-..d.d.d..
-p.......m`)
+..drdrdr.
+p.......m
+rr.r.r.r.`)
     }
   })
 
+  helpSprites.forEach(helpSprite => {
+    if (playerSprite.x === helpSprite.x && playerSprite.y === helpSprite.y) {
+      //sound effect here
+     setMap(map`
+....drrrr.....
+rr...r.d.....r
+r....dd.d.rr..
+rdrgr..r.r.rr.
+r.r..rr.r...r.
+...rr...r.r.r.
+.r.r..d.r.r.r.
+dr..r.....r...
+..r..rrr..rrr.
+...r.p..r.r..d
+....rr....r.r.
+rrd......rr.rd
+...rr.........
+rrr..rrrr.r.r.`)    }
+  })  
     codingSkillsSprites.forEach(codingSkillsSprite => {
     if (playerSprite.x === codingSkillsSprite.x && playerSprite.y === codingSkillsSprite.y) {
     //sound effect here
     setMap(map`
 .r.......
-.........
-pr.d.d..e
+...d.....
+pr...d..e
 .r.......
 .r.......`)
     }
     })
 
+  gameSprites.forEach(gameSprite => {
+    if (playerSprite.x === gameSprite.x && playerSprite.y === gameSprite.y) {
+    //sound effect here
+    setMap(map`
+s`)
+    }
+    })
     distractionSprites.forEach(distractionSprite => {
     if (playerSprite.x === distractionSprite.x && playerSprite.y === distractionSprite.y) {
     //negative sound effect here
@@ -237,7 +302,11 @@ f`)
   })
     motivationSprites.forEach(motivationSprite => {
     if (playerSprite.x === motivationSprite.x && playerSprite.y === motivationSprite.y) {
-    setMap(map`.`)
+    //sound effect here
+    setMap(map`
+p....r..drr
+.rd.dr...rh
+...d..d....`)
     }
     })
 }
