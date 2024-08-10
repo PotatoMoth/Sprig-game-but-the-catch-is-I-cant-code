@@ -230,7 +230,7 @@ pr.d.d..e
 
     distractionSprites.forEach(distractionSprite => {
     if (playerSprite.x === distractionSprite.x && playerSprite.y === distractionSprite.y) {
-    //sound effect here
+    //negative sound effect here
     setMap(map`
 f`)
     }
@@ -241,3 +241,21 @@ f`)
     }
     })
 }
+
+//WHEN I WAS A YOUNG BOY
+setInterval(() => {
+            if (!getFirst(distraction)) return;
+            getFirst(distraction).y -= 1
+            getAll(distraction)[1].y -= 1
+            getAll(distraction)[2].y -= 1
+},
+  1000)
+
+setInterval(() => {
+            if (!getFirst(distraction)) return;
+            getFirst(distraction).y += 2
+            getAll(distraction)[1].y += 2
+            getAll(distraction)[2].y += 2
+            getAll(distraction)[3].y += 2
+},
+  2000)
