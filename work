@@ -245,17 +245,33 @@ f`)
 //WHEN I WAS A YOUNG BOY
 setInterval(() => {
             if (!getFirst(distraction)) return;
-            getFirst(distraction).y -= 1
-            getAll(distraction)[1].y -= 1
-            getAll(distraction)[2].y -= 1
+            getFirst(distraction).y -= 2
+            getAll(distraction)[1].y -= 2
+            getAll(distraction)[2].y -= 2
+            getAll(distraction)[3].y -= 2
+            getAll(distraction)[4].y -= 2
+            getAll(distraction)[5].y -= 2
+            getAll(distraction)[6].y -= 2
+            getAll(distraction)[7].y -= 2
+            getAll(distraction)[8].y -= 2
+},
+  2000)
+
+setInterval(() => {
+            if (!getFirst(distraction)) return;
+            getFirst(distraction).y += 1
+            getAll(distraction)[1].y += 1
+            getAll(distraction)[2].y += 1
+            getAll(distraction)[3].y += 1
+            getAll(distraction)[4].y += 1
+            getAll(distraction)[5].y += 1
+            getAll(distraction)[6].y += 1
+            getAll(distraction)[7].y += 1
+            getAll(distraction)[8].y += 1
 },
   1000)
 
 setInterval(() => {
-            if (!getFirst(distraction)) return;
-            getFirst(distraction).y += 2
-            getAll(distraction)[1].y += 2
-            getAll(distraction)[2].y += 2
-            getAll(distraction)[3].y += 2
-},
-  2000)
+  checkCollisions()},
+200
+  )
