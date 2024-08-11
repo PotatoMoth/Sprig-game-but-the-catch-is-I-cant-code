@@ -236,6 +236,29 @@ rrrrrrrrrrrrrrr.
 ......rr....rr..
 .c.......rr....r`)
 
+addText("gather the", {
+  x: 5,
+  y: 3,
+  color: color`3`
+})
+
+addText("pieces to", {
+  x: 5,
+  y: 4,
+  color: color`3`
+})
+
+addText("make a game", {
+  x: 5,
+  y: 5,
+  color: color`3`
+})
+
+setInterval(() => {
+clearText()
+},
+5000)
+
 const checkCollisions = () => {
   const playerSprite = getFirst(player)
   const codingSkillsSprites = getAll(codingSkills)
@@ -259,11 +282,11 @@ rr.r.r.r.`)
     if (playerSprite.x === helpSprite.x && playerSprite.y === helpSprite.y) {
       playTune(nextLevel)
      setMap(map`
-....dr..r.....
-rr...r.d.....r
+..d.dr..r..d..
+rr...r.......r
 r....dd.d.rr..
-rdrgr..r.r.rr.
-r.r..rr.r...r.
+rdr.r..r.r.rr.
+r.r.grr.r...r.
 ...rr...r.r.r.
 .r.r..d.r.r.r.
 dr..r.....r...
@@ -312,15 +335,6 @@ p....r..drr
     }
     })
 }
-
-//bug fixing log
-//distractions move inconsitsantly, causing final level to only be beatable half the time (fixable with map adjustments?)
-//need 3 more distraction moving lines
-//final level fixed, still need 3 more distraction moving lines
-//I think everything will work now
-//nope it doesn't, the last level is still only beatable half the time
-//did some brainstorming, think I may have to redo the entire distraction movement system
-
 
 setInterval(() => {
             if (!getFirst(distraction)) return;
