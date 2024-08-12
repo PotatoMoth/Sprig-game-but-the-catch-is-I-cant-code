@@ -374,8 +374,47 @@ const winNoise = tune`
 setSolids([player, problem, tree, bush])
 
 onInput("j", () => {
-      setMap(map`
-....rtr.r.......
+  setMap(map`
+....r.rtr.......
+rrrrr.r.r.rr....
+......r.r.r.r.r.
+p.rrr.r.r.r...r.
+....r.r...r...r.
+rrr.r.r..r......
+....r.r..r......
+.rrrr.r.r.......
+.r....r.rrrrr...
+...rrr......r.rr
+..r.......r.r...
+.rrrrrrrrrr.rrr.
+..............r.
+rrrrrrrrrrrrrrr.
+......rr....rr..
+.c.......rr....r`)
+})
+
+onInput("s", () => {
+  getFirst(player).y += 1
+  checkCollisions()
+})
+
+onInput("w", () => {
+  getFirst(player).y -= 1
+  checkCollisions()
+})
+
+onInput("d", () => {
+  getFirst(player).x += 1
+  checkCollisions()
+})
+
+onInput("a", () => {
+  getFirst(player).x -= 1
+  checkCollisions()
+})
+
+setMap(map`
+....r.rtr.......
 rrrrr.r.r.rr....
 ......r.r.r.r.r.
 p.rrr.r.r.r...r.
@@ -392,113 +431,75 @@ rrrrrrrrrrrrrrr.
 ......rr....rr..
 .c.......rr....r`)
 
-      onInput("s", () => {
-        getFirst(player).y += 1
-        checkCollisions()
-      })
+addText("gather the", {
+  x: 5,
+  y: 3,
+  color: color`3`
+})
 
-      onInput("w", () => {
-        getFirst(player).y -= 1
-        checkCollisions()
-      })
+addText("pieces to", {
+  x: 5,
+  y: 4,
+  color: color`3`
+})
 
-      onInput("d", () => {
-        getFirst(player).x += 1
-        checkCollisions()
-      })
+addText("make a game", {
+  x: 5,
+  y: 5,
+  color: color`3`
+})
 
-      onInput("a", () => {
-        getFirst(player).x -= 1
-        checkCollisions()
-      })
+setInterval(() => {
+    clearText()
+  },
+  7000)
 
+const checkCollisions = () => {
+  const playerSprite = getFirst(player)
+  const codingSkillsSprites = getAll(codingSkills)
+  const experienceSprites = getAll(experience)
+  const distractionSprites = getAll(distraction)
+  const motivationSprites = getAll(motivation)
+  const helpSprites = getAll(help)
+  const gameSprites = getAll(game)
+  const secretSprites = getAll(secret)
+
+  experienceSprites.forEach(experienceSprite => {
+    if (playerSprite.x === experienceSprite.x && playerSprite.y === experienceSprite.y) {
+      playTune(nextLevel)
       setMap(map`
-....rtr.r.......
-rrrrr.r.r.rr....
-......r.r.r.r.r.
-p.rrr.r.r.r...r.
-....r.r...r...r.
-rrr.r.r..r......
-....r.r..r......
-.rrrr.r.r.......
-.r....r.rrrrr...
-...rrr......r.rr
-..r.......r.r...
-.rrrrrrrrrr.rrr.
-..............r.
-rrrrrrrrrrrrrrr.
-......rr....rr..
-.c.......rr....r`)
-
-      addText("gather the", {
-        x: 5,
-        y: 3,
-        color: color`3`
-      })
-
-      addText("pieces to", {
-        x: 5,
-        y: 4,
-        color: color`3`
-      })
-
-      addText("make a game", {
-        x: 5,
-        y: 5,
-        color: color`3`
-      })
-
-      setInterval(() => {
-          clearText()
-        },
-        7000)
-
-      const checkCollisions = () => {
-        const playerSprite = getFirst(player)
-        const codingSkillsSprites = getAll(codingSkills)
-        const experienceSprites = getAll(experience)
-        const distractionSprites = getAll(distraction)
-        const motivationSprites = getAll(motivation)
-        const helpSprites = getAll(help)
-        const gameSprites = getAll(game)
-        const secretSprites = getAll(secret)
-
-        experienceSprites.forEach(experienceSprite => {
-          if (playerSprite.x === experienceSprite.x && playerSprite.y === experienceSprite.y) {
-            playTune(nextLevel)
-            setMap(map`
 ..drdrdr.
 p.......m
 rr.r.r.r.`)
-          }
-        })
-        secretSprites.forEach(secretSprite => {
-          if (playerSprite.x === secretSprite.x && playerSprite.y === secretSprite.y) {
-            playback.end()
-            addText("alternate ending:", {
-              x: 1,
-              y: 4,
-              color: color`5`
-            })
-            addText("touch grass", {
-              x: 1,
-              y: 6,
-              color: color`5`
-            })
-            setMap(map`
+    }
+  })
+  secretSprites.forEach(secretSprite => {
+    if (playerSprite.x === secretSprite.x && playerSprite.y === secretSprite.y) {
+      playback.end()
+      addText("alternate ending:", {
+        x: 1,
+        y: 4,
+        color: color`5`
+      })
+      addText("touch grass", {
+        x: 1,
+        y: 6,
+        color: color`5`
+      })
+      setMap(map`
 abaaaaaa
 zaazaaab
 azaaaaza
 zaaaaaza
 baaaaaaa
 aaapaaaa`)
-          }
-        })
+    }
+  })
 
-        helpSprites.forEach(helpSprite => {
-          if (playerSprite.x === helpSprite.x && playerSprite.y === helpSprite.y) {
-            playTune(nextLevel)
-            setMap(map`
+  helpSprites.forEach(helpSprite => {
+    if (playerSprite.x === helpSprite.x && playerSprite.y === helpSprite.y) {
+      playTune(nextLevel)
+      setMap(map`
 ..d.dr..r..d..
 rr...r.......r
 r....dd.d.rr..
@@ -513,82 +514,104 @@ dr..r.....r...
 rrd......rr.rd
 ...rr.........
 rrr..rrrr.r.r.`)
-          }
-        })
-        codingSkillsSprites.forEach(codingSkillsSprite => {
-          if (playerSprite.x === codingSkillsSprite.x && playerSprite.y === codingSkillsSprite.y) {
-            playTune(nextLevel)
-            setMap(map`
+    }
+  })
+  codingSkillsSprites.forEach(codingSkillsSprite => {
+    if (playerSprite.x === codingSkillsSprite.x && playerSprite.y === codingSkillsSprite.y) {
+      playTune(nextLevel)
+      setMap(map`
 .r.......
 ...d.....
 pr...d..e
 .r.......
 .r.......`)
-          }
-        })
+    }
+  })
 
-        gameSprites.forEach(gameSprite => {
-          if (playerSprite.x === gameSprite.x && playerSprite.y === gameSprite.y) {
-            playback.end()
-            const playwinNoise = playTune(winNoise, Infinity)
-            setMap(map`
+  gameSprites.forEach(gameSprite => {
+    if (playerSprite.x === gameSprite.x && playerSprite.y === gameSprite.y) {
+      playback.end()
+      const playwinNoise = playTune(winNoise, Infinity)
+      setMap(map`
 s`)
-          }
-        })
-        distractionSprites.forEach(distractionSprite => {
-          if (playerSprite.x === distractionSprite.x && playerSprite.y === distractionSprite.y) {
-            playback.end()
-            const playDeathNoise = playTune(deathNoise, Infinity)
-            setMap(map`
+    }
+  })
+  distractionSprites.forEach(distractionSprite => {
+    if (playerSprite.x === distractionSprite.x && playerSprite.y === distractionSprite.y) {
+      playback.end()
+      const playDeathNoise = playTune(deathNoise, Infinity)
+      setMap(map`
 f`)
-          }
-        })
-        motivationSprites.forEach(motivationSprite => {
-          if (playerSprite.x === motivationSprite.x && playerSprite.y === motivationSprite.y) {
-            playTune(nextLevel)
-            setMap(map`
+    }
+  })
+  motivationSprites.forEach(motivationSprite => {
+    if (playerSprite.x === motivationSprite.x && playerSprite.y === motivationSprite.y) {
+      playTune(nextLevel)
+      setMap(map`
 p....r..drr
 .rd.dr...rh
 ...d..d....`)
-          }
-        })
-      }
+    }
+  })
+}
 
-      setInterval(() => {
-          if (!getFirst(distraction)) return;
-          getFirst(distraction).y -= 2
-          getAll(distraction)[1].y -= 2
-          getAll(distraction)[2].y -= 2
-          getAll(distraction)[3].y -= 2
-          getAll(distraction)[4].y -= 2
-          getAll(distraction)[5].y -= 2
-          getAll(distraction)[6].y -= 2
-          getAll(distraction)[7].y -= 2
-          getAll(distraction)[8].y -= 2
-          getAll(distraction)[9].y -= 2
-          getAll(distraction)[10].y -= 2
-          getAll(distraction)[11].y -= 2
-        },
-        2000)
+setInterval(() => {
+    if (!getFirst(distraction)) return;
+    getFirst(distraction).y -= 2
+    if (!getAll(distraction)[1]) return;
+    getAll(distraction)[1].y -= 2
+    if (!getAll(distraction)[2]) return;
+    getAll(distraction)[2].y -= 2
+    if (!getAll(distraction)[3]) return;
+    getAll(distraction)[3].y -= 2
+    if (!getAll(distraction)[4]) return;
+    getAll(distraction)[4].y -= 2
+    if (!getAll(distraction)[5]) return;
+    getAll(distraction)[5].y -= 2
+    if (!getAll(distraction)[6]) return;
+    getAll(distraction)[6].y -= 2
+    if (!getAll(distraction)[7]) return;
+    getAll(distraction)[7].y -= 2
+    if (!getAll(distraction)[8]) return;
+    getAll(distraction)[8].y -= 2
+    if (!getAll(distraction)[9]) return;
+    getAll(distraction)[9].y -= 2
+    if (!getAll(distraction)[10]) return;
+    getAll(distraction)[10].y -= 2
+    if (!getAll(distraction)[11]) return;
+    getAll(distraction)[11].y -= 2
+  },
+  2000)
 
-      setInterval(() => {
-          if (!getFirst(distraction)) return;
-          getFirst(distraction).y += 1
-          getAll(distraction)[1].y += 1
-          getAll(distraction)[2].y += 1
-          getAll(distraction)[3].y += 1
-          getAll(distraction)[4].y += 1
-          getAll(distraction)[5].y += 1
-          getAll(distraction)[6].y += 1
-          getAll(distraction)[7].y += 1
-          getAll(distraction)[8].y += 1
-          getAll(distraction)[9].y += 1
-          getAll(distraction)[10].y += 1
-          getAll(distraction)[11].y += 1
-        },
-        1000)
+setInterval(() => {
+    if (!getFirst(distraction)) return;
+    getFirst(distraction).y += 1
+    if (!getAll(distraction)[1]) return;
+    getAll(distraction)[1].y += 1
+    if (!getAll(distraction)[2]) return;
+    getAll(distraction)[2].y += 1
+    if (!getAll(distraction)[3]) return;
+    getAll(distraction)[3].y += 1
+    if (!getAll(distraction)[4]) return;
+    getAll(distraction)[4].y += 1
+    if (!getAll(distraction)[5]) return;
+    getAll(distraction)[5].y += 1
+    if (!getAll(distraction)[6]) return;
+    getAll(distraction)[6].y += 1
+    if (!getAll(distraction)[7]) return;
+    getAll(distraction)[7].y += 1
+    if (!getAll(distraction)[8]) return;
+    getAll(distraction)[8].y += 1
+    if (!getAll(distraction)[9]) return;
+    getAll(distraction)[9].y += 1
+    if (!getAll(distraction)[10]) return;
+    getAll(distraction)[10].y += 1
+    if (!getAll(distraction)[11]) return;
+    getAll(distraction)[11].y += 1
+  },
+  1000)
 
-      setInterval(() => {
-          checkCollisions()
-        },
-        200)
+setInterval(() => {
+    checkCollisions()
+  },
+  200)
